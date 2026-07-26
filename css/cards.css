@@ -1,0 +1,523 @@
+/* ========================================
+   ÍCONES SVG
+======================================== */
+
+.icon-svg {
+    display: block;
+    width: 1.35em;
+    height: 1.35em;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.icon-svg-solid {
+    fill: currentColor;
+    stroke: none;
+}
+
+.icon-svg-fill-background {
+    fill: var(--color-background, #050816);
+}
+
+/* Ícones das redes sociais no Hero */
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.social-links .icon-svg {
+    width: 1.05rem;
+    height: 1.05rem;
+}
+
+/* Ícones da trajetória, competências, formação e contato */
+
+.timeline-icon,
+.skill-icon,
+.education-icon,
+.contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-icon .icon-svg,
+.skill-icon .icon-svg,
+.education-icon .icon-svg,
+.contact-icon .icon-svg {
+    width: 1.65rem;
+    height: 1.65rem;
+}
+
+.education-icon,
+.contact-icon {
+    flex: 0 0 auto;
+}
+
+/* ========================================
+   CARDS DE COMPETÊNCIAS
+======================================== */
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-6);
+}
+
+.skill-card {
+    position: relative;
+    overflow: hidden;
+    padding: var(--spacing-8);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 24, 39, 0.92),
+            rgba(15, 23, 42, 0.72)
+        );
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform var(--transition-base),
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.skill-card::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--color-primary),
+            transparent
+        );
+    content: "";
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.skill-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(59, 130, 246, 0.55);
+    box-shadow: var(--shadow-primary);
+}
+
+.skill-card:hover::before {
+    opacity: 1;
+}
+
+.skill-icon {
+    display: inline-flex;
+    width: 3.5rem;
+    height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-6);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-xl);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.12);
+}
+
+.skill-icon .icon-svg {
+    width: 1.65rem;
+    height: 1.65rem;
+}
+
+.skill-card h3 {
+    margin-bottom: var(--spacing-5);
+    font-size: var(--font-size-xl);
+}
+
+.skill-list {
+    display: grid;
+    gap: var(--spacing-3);
+}
+
+.skill-list li {
+    position: relative;
+    padding-left: var(--spacing-5);
+    color: var(--color-muted);
+}
+
+.skill-list li::before {
+    position: absolute;
+    top: 0.65em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    content: "";
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.75);
+}
+
+/* ========================================
+   CARDS DE PROJETOS
+======================================== */
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-6);
+}
+
+.project-card {
+    position: relative;
+    display: flex;
+    min-height: 100%;
+    overflow: hidden;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    background:
+        linear-gradient(
+            160deg,
+            rgba(17, 24, 39, 0.96),
+            rgba(15, 23, 42, 0.78)
+        );
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform var(--transition-base),
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(59, 130, 246, 0.55);
+    box-shadow: var(--shadow-primary);
+}
+
+.project-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background-color: var(--color-background);
+}
+
+.project-image-wrapper::after {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            to top,
+            rgba(5, 8, 22, 0.75),
+            transparent 55%
+        );
+    content: "";
+    pointer-events: none;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-slow);
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.06);
+    filter: brightness(1.08);
+}
+
+.project-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: var(--spacing-6);
+}
+
+.project-status {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-4);
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    border-radius: var(--border-radius-full);
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.project-status::before {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--color-primary-hover);
+    content: "";
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.85);
+}
+
+.project-card h3 {
+    margin-bottom: var(--spacing-3);
+    font-size: var(--font-size-xl);
+}
+
+.project-technologies {
+    margin-bottom: var(--spacing-4);
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.project-description {
+    margin-bottom: var(--spacing-6);
+    color: var(--color-muted);
+}
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    margin-top: auto;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-title);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    transition:
+        color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.project-link::after {
+    content: "↗";
+    color: var(--color-primary-hover);
+}
+
+.project-link:hover {
+    transform: translateX(3px);
+    color: var(--color-primary-hover);
+}
+
+/* ========================================
+   CARD DE PROJETO FUTURO
+======================================== */
+
+.project-card-placeholder {
+    border-style: dashed;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 23, 42, 0.55),
+            rgba(17, 24, 39, 0.35)
+        );
+}
+
+.project-placeholder {
+    display: flex;
+    min-height: 230px;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px dashed var(--color-border);
+    background:
+        radial-gradient(
+            circle,
+            rgba(59, 130, 246, 0.12),
+            transparent 52%
+        );
+}
+
+.project-placeholder span {
+    display: inline-flex;
+    width: 4.5rem;
+    height: 4.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    border-radius: 50%;
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-3xl);
+    line-height: 1;
+    box-shadow: var(--shadow-primary);
+}
+
+/* ========================================
+   MICROINTERAÇÕES DOS CARDS
+======================================== */
+
+.about-card,
+.timeline-item,
+.skill-card,
+.project-card,
+.education-card,
+.contact-card {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform 280ms ease,
+        border-color 280ms ease,
+        box-shadow 280ms ease,
+        background-color 280ms ease;
+}
+
+.about-card::before,
+.timeline-item::before,
+.skill-card::before,
+.project-card::before,
+.education-card::before,
+.contact-card::before {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        135deg,
+        rgba(59, 130, 246, 0.08),
+        transparent 45%
+    );
+
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 280ms ease;
+}
+
+.about-card:hover,
+.timeline-item:hover,
+.skill-card:hover,
+.project-card:hover,
+.education-card:hover,
+.contact-card:hover {
+    border-color: rgba(96, 165, 250, 0.38);
+
+    box-shadow:
+        0 22px 50px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(59, 130, 246, 0.06);
+
+    transform: translateY(-6px);
+}
+
+.about-card:hover::before,
+.timeline-item:hover::before,
+.skill-card:hover::before,
+.project-card:hover::before,
+.education-card:hover::before,
+.contact-card:hover::before {
+    opacity: 1;
+}
+
+/* ========================================
+   MICROINTERAÇÕES DOS BOTÕES
+======================================== */
+
+.button {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.button::before {
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.22),
+        transparent
+    );
+
+    content: "";
+    pointer-events: none;
+
+    transform: skewX(-20deg);
+    transition: left 550ms ease;
+
+    z-index: -1;
+}
+
+.button:hover::before {
+    left: 140%;
+}
+
+.button:active {
+    transform: translateY(0) scale(0.97);
+}
+
+/* ========================================
+   BRILHO INTERATIVO NOS CARDS
+======================================== */
+
+.about-card,
+.timeline-item,
+.skill-card,
+.project-card,
+.education-card,
+.contact-card {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+}
+
+.about-card::after,
+.timeline-item::after,
+.skill-card::after,
+.project-card::after,
+.education-card::after,
+.contact-card::after {
+    position: absolute;
+    inset: 0;
+
+    background: radial-gradient(
+        circle 240px at var(--mouse-x) var(--mouse-y),
+        rgba(96, 165, 250, 0.14),
+        transparent 65%
+    );
+
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 220ms ease;
+}
+
+.about-card:hover::after,
+.timeline-item:hover::after,
+.skill-card:hover::after,
+.project-card:hover::after,
+.education-card:hover::after,
+.contact-card:hover::after {
+    opacity: 1;
+}
+
+@media (hover: none), (pointer: coarse) {
+    .about-card::after,
+    .timeline-item::after,
+    .skill-card::after,
+    .project-card::after,
+    .education-card::after,
+    .contact-card::after {
+        display: none;
+    }
+}

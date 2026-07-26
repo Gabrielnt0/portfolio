@@ -1,0 +1,293 @@
+/* ========================================
+   SOBRE
+======================================== */
+
+.about-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+    gap: var(--spacing-12);
+    align-items: start;
+}
+
+.about-text {
+    display: grid;
+    gap: var(--spacing-5);
+}
+
+.about-text p {
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+}
+
+.about-card {
+    padding: var(--spacing-8);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 23, 42, 0.95),
+            rgba(17, 24, 39, 0.78)
+        );
+    box-shadow: var(--shadow-sm);
+}
+
+.about-card h3 {
+    margin-bottom: var(--spacing-6);
+    font-size: var(--font-size-xl);
+}
+
+.about-card ul {
+    display: grid;
+    gap: var(--spacing-5);
+}
+
+.about-card li {
+    color: var(--color-muted);
+}
+
+.about-card strong {
+    display: block;
+    margin-bottom: var(--spacing-1);
+    color: var(--color-title);
+}
+
+/* ========================================
+   TRAJETÓRIA
+======================================== */
+
+.timeline {
+    position: relative;
+    display: grid;
+    gap: var(--spacing-8);
+    max-width: 900px;
+}
+
+.timeline::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 11px;
+    width: 2px;
+    background:
+        linear-gradient(
+            to bottom,
+            var(--color-primary),
+            rgba(59, 130, 246, 0.1)
+        );
+    content: "";
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: var(--spacing-12);
+}
+
+.timeline-marker {
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border: 5px solid var(--color-surface);
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    box-shadow:
+        0 0 0 1px rgba(96, 165, 250, 0.35),
+        0 0 26px rgba(59, 130, 246, 0.55);
+}
+
+.timeline-content {
+    padding: var(--spacing-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    background-color: rgba(17, 24, 39, 0.68);
+    transition:
+        transform var(--transition-base),
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.timeline-content:hover {
+    transform: translateX(6px);
+    border-color: rgba(59, 130, 246, 0.55);
+    box-shadow: var(--shadow-primary);
+}
+
+.timeline-year {
+    display: inline-block;
+    margin-bottom: var(--spacing-3);
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.timeline-icon {
+    display: inline-flex;
+    margin-left: var(--spacing-2);
+    font-size: var(--font-size-md);
+}
+
+.timeline-content h3 {
+    margin-bottom: var(--spacing-3);
+    font-size: var(--font-size-xl);
+}
+
+.timeline-content p {
+    color: var(--color-muted);
+}
+
+/* ========================================
+   FORMAÇÃO
+======================================== */
+
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-6);
+}
+
+.education-card {
+    display: flex;
+    gap: var(--spacing-5);
+    padding: var(--spacing-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    background-color: rgba(17, 24, 39, 0.7);
+    transition:
+        transform var(--transition-base),
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.education-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.55);
+    box-shadow: var(--shadow-primary);
+}
+
+.education-icon {
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-primary-soft);
+    font-size: var(--font-size-xl);
+}
+
+.education-type {
+    display: inline-block;
+    margin-bottom: var(--spacing-2);
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.education-card h3 {
+    margin-bottom: var(--spacing-2);
+    font-size: var(--font-size-lg);
+}
+
+.education-card p {
+    color: var(--color-muted);
+}
+
+/* ========================================
+   CURRÍCULO
+======================================== */
+
+.resume {
+    background:
+        radial-gradient(
+            circle at 85% 50%,
+            rgba(59, 130, 246, 0.12),
+            transparent 28%
+        ),
+        var(--color-background);
+}
+
+.resume-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-12);
+    padding: var(--spacing-10);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-xl);
+    background-color: rgba(15, 23, 42, 0.72);
+    box-shadow: var(--shadow-md);
+}
+
+.resume-content {
+    max-width: 720px;
+}
+
+/* ========================================
+   CONTATO
+======================================== */
+
+.contact-container {
+    display: grid;
+    gap: var(--spacing-10);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--spacing-5);
+}
+
+.contact-card {
+    display: flex;
+    min-height: 150px;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    background-color: rgba(17, 24, 39, 0.72);
+    transition:
+        transform var(--transition-base),
+        border-color var(--transition-base),
+        background-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.contact-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(59, 130, 246, 0.55);
+    background-color: rgba(15, 23, 42, 0.95);
+    box-shadow: var(--shadow-primary);
+}
+
+.contact-icon {
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-primary-soft);
+    font-size: var(--font-size-xl);
+}
+
+.contact-label {
+    display: block;
+    margin-bottom: var(--spacing-1);
+    color: var(--color-muted);
+    font-size: var(--font-size-sm);
+}
+
+.contact-card strong {
+    color: var(--color-title);
+    font-size: var(--font-size-sm);
+    overflow-wrap: anywhere;
+}

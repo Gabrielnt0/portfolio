@@ -1,0 +1,73 @@
+:root {
+    /* Cores principais */
+    --color-background: #050816;
+    --color-surface: #0f172a;
+    --color-card: #111827;
+    --color-border: #1e293b;
+
+    --color-primary: #3b82f6;
+    --color-primary-hover: #60a5fa;
+    --color-primary-soft: rgba(59, 130, 246, 0.14);
+
+    --color-title: #f8fafc;
+    --color-text: #cbd5e1;
+    --color-muted: #94a3b8;
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+    /* Tipografia */
+    --font-primary: "Inter", Arial, Helvetica, sans-serif;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-md: 1.125rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 2.75rem;
+    --font-size-4xl: 4rem;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --line-height-tight: 1.2;
+    --line-height-base: 1.6;
+
+    /* Espaçamentos */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.25rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-10: 2.5rem;
+    --spacing-12: 3rem;
+    --spacing-16: 4rem;
+    --spacing-20: 5rem;
+    --spacing-24: 6rem;
+
+    /* Bordas */
+    --border-radius-sm: 0.5rem;
+    --border-radius-md: 0.875rem;
+    --border-radius-lg: 1.25rem;
+    --border-radius-xl: 1.75rem;
+    --border-radius-full: 999px;
+
+    /* Sombras */
+    --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.18);
+    --shadow-md: 0 20px 50px rgba(0, 0, 0, 0.28);
+    --shadow-primary: 0 0 40px rgba(59, 130, 246, 0.2);
+
+    /* Layout */
+    --container-width: 1200px;
+    --header-height: 80px;
+
+    /* Transições */
+    --transition-fast: 180ms ease;
+    --transition-base: 280ms ease;
+    --transition-slow: 450ms ease;
+}
