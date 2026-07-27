@@ -48,7 +48,7 @@ function createEducationCard(item) {
     const description = item.description
         ? `<p>${escapeHtml(item.description)}</p>`
         : "";
-    const credential = item.credential_url
+    const credential = item.certificate_url
         ? `
             <a
                 href="${escapeHtml(item.credential_url)}"
@@ -73,7 +73,7 @@ function createEducationCard(item) {
 
             <div>
                 <span class="education-type">
-                    ${item.featured ? "Formação em destaque" : "Formação acadêmica"}
+                    ${item.is_featured ? "Formação em destaque" : "Formação acadêmica"}
                 </span>
 
                 <h3>${escapeHtml(title)}</h3>
