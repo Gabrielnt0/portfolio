@@ -291,3 +291,15 @@
     font-size: var(--font-size-sm);
     overflow-wrap: anywhere;
 }
+/* Link opcional exibido em formações carregadas pelo CMS */
+.education-link {
+    display: inline-flex;
+    margin-top: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.education-link:hover,
+.education-link:focus-visible {
+    text-decoration: underline;
+}
