@@ -281,11 +281,11 @@
                         Olá, eu sou
                     </p>
 
-                    <h1 class="hero-title">
+                    <h1 class="hero-title" id="profile-name">
                         Gabriel Andrade
                     </h1>
 
-                    <p class="hero-profession">
+                    <p class="hero-profession" id="profile-title">
                         Editor de Vídeo
                         <span>•</span>
                         Criador de Conteúdo Digital
@@ -293,7 +293,7 @@
                         Desenvolvedor em Formação
                     </p>
 
-                    <p class="hero-description">
+                    <p class="hero-description" id="profile-short-bio">
                         Transformo ideias em conteúdos
                         digitais e estou ampliando meus conhecimentos em desenvolvimento web para criar projetos
                         que unem criatividade, tecnologia e aprendizado contínuo.
@@ -302,6 +302,7 @@
                     <div class="hero-actions">
                         <a
                             href="./documents/curriculo-gabriel-andrade.pdf"
+                            id="profile-resume"
                             class="button button-primary"
                             download
                         >
@@ -323,6 +324,7 @@
                         <li>
                             <a
                                 href="https://github.com/Gabrielnt0"
+                                id="profile-github"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -336,6 +338,7 @@
                         <li>
                             <a
                                 href="https://www.linkedin.com/in/gabrielandrade2002/"
+                                id="profile-linkedin"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -349,7 +352,8 @@
 
                         <li>
                             <a
-                                href=https://www.youtube.com/@gbN1TE"
+                                href="https://www.youtube.com/@gbN1TE"
+                                id="profile-youtube"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -373,6 +377,7 @@
         src="./assets/images/foto-gabriel.webp"
         alt="Foto profissional de Gabriel Andrade"
         class="hero-image"
+        id="profile-avatar"
     >
 
 </div>
@@ -395,7 +400,7 @@
                 </div>
 
                 <div class="about-content">
-                    <div class="about-text">
+                    <div class="about-text" id="profile-bio">
                         <p>
                             Minha trajetória profissional começou no atendimento
                             ao cliente, onde desenvolvi habilidades de comunicação,
@@ -423,7 +428,7 @@
                         <ul>
                             <li>
                                 <strong>Localização:</strong>
-                                Santos, São Paulo
+                                <span id="profile-location">Santos, São Paulo</span>
                             </li>
 
                             <li>
@@ -684,109 +689,41 @@
                     </p>
                 </div>
 
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-image-wrapper">
-                            <img
-                                src="./assets/images/projeto-ntclipes.jpeg"
-                                alt="Imagem de apresentação do projeto NTCLIPES"
-                                class="project-image"
-                            >
+                <div
+                    class="project-filters"
+                    id="project-filters"
+                    aria-label="Filtrar projetos por categoria"
+                    hidden
+                ></div>
+
+                <p
+                    class="projects-feedback"
+                    id="projects-feedback"
+                    role="status"
+                    hidden
+                ></p>
+
+                <div
+                    class="projects-grid"
+                    id="projects-grid"
+                    aria-live="polite"
+                >
+                    <article class="project-card project-card-placeholder project-empty-state">
+                        <div class="project-placeholder" aria-hidden="true">
+                            <span>…</span>
                         </div>
 
                         <div class="project-content">
                             <span class="project-status">
-                                Projeto ativo
+                                Sincronizando
                             </span>
 
                             <h3>
-                                NTCLIPES
-                            </h3>
-
-                            <p class="project-technologies">
-                                CapCut • Canva • YouTube
-                            </p>
-
-                            <p class="project-description">
-                                Projeto voltado à criação, edição e publicação
-                                de clipes e conteúdos audiovisuais para
-                                plataformas digitais.
-                            </p>
-
-                            <div class="project-links">
-                                <a
-                                    href="https://www.youtube.com/@NTCLIPES"
-                                    class="project-link"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    Ver canal
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-image-wrapper">
-                            <img
-                                src="./assets/images/projeto-ntsoundlab.png"
-                                alt="Imagem de apresentação do projeto NTSOUNDLAB"
-                                class="project-image"
-                            >
-                        </div>
-
-                        <div class="project-content">
-                            <span class="project-status">
-                                Projeto ativo
-                            </span>
-
-                            <h3>
-                                NTSOUNDLAB
-                            </h3>
-
-                            <p class="project-technologies">
-                                Conteúdo Digital • Design • YouTube
-                            </p>
-
-                            <p class="project-description">
-                                Projeto próprio voltado à publicação de
-                                conteúdos relacionados a música, áudio e
-                                entretenimento digital.
-                            </p>
-
-                            <div class="project-links">
-                                <a
-                                    href="https://www.youtube.com/@NTSOUNDLAB"
-                                    class="project-link"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    Ver projeto
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card project-card-placeholder">
-                        <div class="project-placeholder">
-                            <span aria-hidden="true">
-                                +
-                            </span>
-                        </div>
-
-                        <div class="project-content">
-                            <span class="project-status">
-                                Em breve
-                            </span>
-
-                            <h3>
-                                Novo projeto
+                                Carregando projetos
                             </h3>
 
                             <p class="project-description">
-                                Este espaço será utilizado para apresentar
-                                novos projetos quando estiverem concluídos e
-                                prontos para publicação.
+                                Buscando os projetos publicados no NT Studio CMS.
                             </p>
                         </div>
                     </article>
@@ -1073,5 +1010,7 @@
 
     <script src="./js/script.js"></script>
     <script type="module" src="./js/modules/education.js"></script>
+    <script type="module" src="./js/modules/projects.js"></script>
+    <script type="module" src="./js/modules/profile.js"></script>
 </body>
 </html>
