@@ -60,10 +60,7 @@ function normalizeContent(content) {
  */
 export function getPortfolioContent({ forceRefresh = false } = {}) {
     if (!portfolioContentPromise || forceRefresh) {
-        portfolioContentPromise = requestRpc("get_public_portfolio_content", {
-            requested_workspace_slug: portfolioConfig.workspaceSlug || null,
-            requested_owner_user_id: portfolioConfig.ownerUserId || null
-        })
+        portfolioContentPromise = requestRpc("get_public_portfolio_content")
             .then(normalizeContent)
             .catch((error) => {
                 portfolioContentPromise = null;
