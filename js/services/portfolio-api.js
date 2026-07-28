@@ -20,20 +20,31 @@ function buildHeaders() {
     };
 }
 
+function buildPortfolioPayload() {
+    const payload = {};
+
+    if (portfolioConfig.workspaceSlug?.trim()) {
+        payload.requested_workspace_slug = portfolioConfig.workspaceSlug.trim();
+    }
+
+    if (portfolioConfig.ownerUserId?.trim()) {
+        payload.requested_owner_user_id = portfolioConfig.ownerUserId.trim();
+    }
+
+    return payload;
+}
+
 async function requestRpc(functionName, payload = {}) {
     if (!hasValidConfiguration()) {
         throw new Error("Supabase ainda não foi configurado no portfólio.");
     }
 
     const baseUrl = portfolioConfig.supabaseUrl.replace(/\/$/, "");
-    const response = await fetch(
-        `${baseUrl}/rest/v1/rpc/${functionName}`,
-        {
-            method: "POST",
-            headers: buildHeaders(),
-            body: JSON.stringify(payload)
-        }
-    );
+    const response = await fetch(`${baseUrl}/rest/v1/rpc/${functionName}`, {
+        method: "POST",
+        headers: buildHeaders(),
+        body: JSON.stringify(payload)
+    });
 
     if (!response.ok) {
         const message = await response.text();
@@ -47,20 +58,24 @@ async function requestRpc(functionName, payload = {}) {
 
 function normalizeContent(content) {
     return {
+        workspace: content?.workspace ?? null,
         profile: content?.profile ?? null,
         projects: Array.isArray(content?.projects) ? content.projects : [],
         education: Array.isArray(content?.education) ? content.education : [],
+        experiences: Array.isArray(content?.experiences) ? content.experiences : [],
+        skills: Array.isArray(content?.skills) ? content.skills : [],
+        seo: content?.seo ?? null,
         meta: content?.meta ?? {}
     };
 }
 
-/**
- * Carrega todo o conteúdo público em uma única requisição.
- * O mesmo Promise é compartilhado entre Perfil, Projetos e Formação.
- */
+/** Carrega todo o conteúdo público em uma única requisição compartilhada. */
 export function getPortfolioContent({ forceRefresh = false } = {}) {
     if (!portfolioContentPromise || forceRefresh) {
-        portfolioContentPromise = requestRpc("get_public_portfolio_content")
+        portfolioContentPromise = requestRpc(
+            "get_public_portfolio_content",
+            buildPortfolioPayload()
+        )
             .then(normalizeContent)
             .catch((error) => {
                 portfolioContentPromise = null;
@@ -72,16 +87,35 @@ export function getPortfolioContent({ forceRefresh = false } = {}) {
 }
 
 export async function getPublicProfile() {
-    const content = await getPortfolioContent();
-    return content.profile;
+    return (await getPortfolioContent()).profile;
 }
 
 export async function getPublishedProjects() {
-    const content = await getPortfolioContent();
-    return content.projects;
+    return (await getPortfolioContent()).projects;
 }
 
 export async function getPublishedEducation() {
-    const content = await getPortfolioContent();
-    return content.education;
+    return (await getPortfolioContent()).education;
+}
+
+export async function getPublishedExperiences() {
+    return (await getPortfolioContent()).experiences;
+}
+
+export async function getPublishedSkills() {
+    return (await getPortfolioContent()).skills;
+}
+
+export async function getPublicSeo() {
+    return (await getPortfolioContent()).seo;
+}
+
+/** Carrega o tema público associado ao mesmo workspace do portfólio. */
+export async function getPublicTheme() {
+    return requestRpc("get_public_portfolio_theme", buildPortfolioPayload());
+}
+
+/** Carrega a estrutura pública do Site Builder para o mesmo workspace. */
+export async function getPublicBuilderSettings() {
+    return requestRpc("get_public_portfolio_builder", buildPortfolioPayload());
 }

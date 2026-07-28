@@ -39,7 +39,7 @@ function buildSubtitle(item) {
 }
 
 function createEducationCard(item) {
-    const title = item.degree || item.field_of_study || "Formação";
+    const title = item.course || item.degree || item.field_of_study || "Formação";
     const field = item.degree && item.field_of_study
         ? `<p>${escapeHtml(item.field_of_study)}</p>`
         : "";
@@ -51,7 +51,7 @@ function createEducationCard(item) {
     const credential = item.certificate_url
         ? `
             <a
-                href="${escapeHtml(item.credential_url)}"
+                href="${escapeHtml(item.certificate_url)}"
                 class="education-link"
                 target="_blank"
                 rel="noopener noreferrer"

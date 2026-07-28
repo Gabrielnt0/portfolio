@@ -303,3 +303,30 @@
 .education-link:focus-visible {
     text-decoration: underline;
 }
+
+
+.experience-company {
+    margin-bottom: var(--spacing-3);
+    color: var(--color-primary-hover) !important;
+    font-weight: var(--font-weight-semibold);
+}
+
+.experience-company a {
+    color: inherit;
+}
+
+.experience-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-4);
+}
+
+.experience-technologies li {
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 999px;
+    background: var(--color-primary-soft);
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-sm);
+}

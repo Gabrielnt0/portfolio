@@ -579,3 +579,120 @@
     width: 100%;
     margin-inline: auto;
 }
+
+/* ========================================
+   CARROSSEL PROFISSIONAL DE PROJETOS
+======================================== */
+.project-carousel {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-background);
+    isolation: isolate;
+}
+
+.project-carousel-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    touch-action: pan-y;
+}
+
+.project-carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 520ms cubic-bezier(.22,.61,.36,1);
+    will-change: transform;
+}
+
+.project-carousel-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    height: 100%;
+}
+
+.project-carousel-slide .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-carousel::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 8, 22, .72), transparent 52%);
+    content: "";
+    pointer-events: none;
+    z-index: 1;
+}
+
+.project-carousel-button {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    display: grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    background: rgba(5,8,22,.68);
+    color: #fff;
+    font: inherit;
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 180ms ease, background 180ms ease, transform 180ms ease;
+    backdrop-filter: blur(10px);
+}
+
+.project-carousel-previous { left: .75rem; }
+.project-carousel-next { right: .75rem; }
+
+.project-card:hover .project-carousel-button,
+.project-carousel:focus-within .project-carousel-button {
+    opacity: 1;
+}
+
+.project-carousel-button:hover,
+.project-carousel-button:focus-visible {
+    background: var(--color-primary);
+    transform: translateY(-50%) scale(1.06);
+}
+
+.project-carousel-dots {
+    position: absolute;
+    left: 50%;
+    bottom: .8rem;
+    z-index: 3;
+    display: flex;
+    gap: .38rem;
+    transform: translateX(-50%);
+}
+
+.project-carousel-dot {
+    width: .45rem;
+    height: .45rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,.5);
+    cursor: pointer;
+    transition: width 180ms ease, background 180ms ease;
+}
+
+.project-carousel-dot.is-active {
+    width: 1.35rem;
+    background: var(--color-primary-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-carousel-track { transition: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+    .project-carousel-button { opacity: 1; }
+}

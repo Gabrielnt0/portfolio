@@ -1,0 +1,38 @@
+.theme-motion-disabled *,
+.theme-motion-disabled *::before,
+.theme-motion-disabled *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+}
+
+/* ONRONT Site Builder */
+[hidden] { display: none !important; }
+.builder-hero-centered .hero-container { grid-template-columns: 1fr; text-align: center; }
+.builder-hero-centered .hero-content { margin-inline: auto; max-width: 850px; }
+.builder-hero-centered .hero-actions,
+.builder-hero-centered .hero-socials { justify-content: center; }
+.builder-hero-centered .hero-visual { display: none; }
+.builder-hero-fullscreen .hero { min-height: 100svh; display: flex; align-items: center; }
+.builder-hero-fullscreen .hero-container { grid-template-columns: 1fr; text-align: center; }
+.builder-hero-fullscreen .hero-content { margin-inline: auto; max-width: 900px; }
+.builder-hero-fullscreen .hero-actions,
+.builder-hero-fullscreen .hero-socials { justify-content: center; }
+.builder-hero-fullscreen .hero-visual { display: none; }
+
+.builder-cards-flat :is(.about-card,.timeline-item,.skill-card,.project-card,.education-card,.contact-card) { border-radius: 2px !important; box-shadow: none !important; }
+.builder-cards-rounded :is(.about-card,.timeline-item,.skill-card,.project-card,.education-card,.contact-card) { border-radius: 22px !important; }
+.builder-cards-glass :is(.about-card,.timeline-item,.skill-card,.project-card,.education-card,.contact-card) { background: color-mix(in srgb, var(--color-card) 72%, transparent) !important; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+.builder-cards-outline :is(.about-card,.timeline-item,.skill-card,.project-card,.education-card,.contact-card) { background: transparent !important; box-shadow: none !important; border-width: 1px !important; }
+
+.builder-buttons-square :is(.button,.project-link,.resume-button) { border-radius: 3px !important; }
+.builder-buttons-rounded :is(.button,.project-link,.resume-button) { border-radius: 12px !important; }
+.builder-buttons-pill :is(.button,.project-link,.resume-button) { border-radius: 999px !important; }
+.builder-buttons-outline :is(.button,.project-link,.resume-button) { background: transparent !important; border: 1px solid var(--color-primary) !important; color: var(--color-primary) !important; }
+
+.builder-navbar-transparent .header { background: transparent !important; border-bottom-color: transparent !important; }
+.builder-navbar-blur .header { background: color-mix(in srgb, var(--color-background) 72%, transparent) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.builder-container-compact .container { max-width: 1040px; }
+.builder-container-wide .container { max-width: 1240px; }
+.builder-container-full .container { max-width: min(94vw, 1540px); }
