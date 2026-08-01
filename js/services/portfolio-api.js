@@ -73,6 +73,8 @@ function normalizeContent(content) {
         experiences: Array.isArray(content?.experiences) ? content.experiences : [],
         skills: Array.isArray(content?.skills) ? content.skills : [],
         seo: content?.seo ?? null,
+        theme: content?.theme ?? null,
+        settings: content?.settings ?? null,
         meta: content?.meta ?? {}
     };
 }

@@ -24,39 +24,6 @@ function setLink(rel, href) {
     element.href = href;
 }
 
-function injectGoogleAnalytics(measurementId) {
-    const id = String(measurementId || "").trim().toUpperCase();
-    if (!/^G-[A-Z0-9]+$/.test(id)) return;
-    if (document.querySelector(`[data-portfolio-ga="${id}"]`)) return;
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
-    script.dataset.portfolioGa = id;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { window.dataLayer.push(arguments); }
-    window.gtag = window.gtag || gtag;
-    window.gtag("js", new Date());
-    window.gtag("config", id);
-}
-
-function injectGoogleTagManager(containerId) {
-    const id = String(containerId || "").trim().toUpperCase();
-    if (!/^GTM-[A-Z0-9]+$/.test(id)) return;
-    if (document.querySelector(`[data-portfolio-gtm="${id}"]`)) return;
-
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(id)}`;
-    script.dataset.portfolioGtm = id;
-    document.head.appendChild(script);
-}
-
 function renderSeo(seo) {
     if (!seo) return;
     if (seo.seo_title) document.title = seo.seo_title;
@@ -82,8 +49,6 @@ function renderSeo(seo) {
         setLink("shortcut icon", seo.favicon_url);
     }
 
-    injectGoogleAnalytics(seo.google_analytics);
-    injectGoogleTagManager(seo.google_tag_manager);
 }
 
 getPublicSeo()
