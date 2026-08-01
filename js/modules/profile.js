@@ -7,6 +7,17 @@ function setText(selector, value) {
     }
 }
 
+function normalizePublicUrl(value) {
+    if (!value) return "";
+
+    try {
+        const url = new URL(value, window.location.href);
+        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+    } catch {
+        return "";
+    }
+}
+
 function setLink(selector, value, { mailto = false, tel = false } = {}) {
     const element = document.querySelector(selector);
     if (!element || !value) return;
@@ -23,14 +34,11 @@ function setLink(selector, value, { mailto = false, tel = false } = {}) {
         return;
     }
 
-    try {
-        const url = new URL(value, window.location.href);
-        if (!["http:", "https:"].includes(url.protocol)) return;
-        element.href = url.href;
-        element.hidden = false;
-    } catch {
-        // Mantém o conteúdo estático quando a URL não é válida.
-    }
+    const safeUrl = normalizePublicUrl(value);
+    if (!safeUrl) return;
+
+    element.href = safeUrl;
+    element.hidden = false;
 }
 
 function setVisibility(selector, visible) {
@@ -56,6 +64,55 @@ function renderBio(value) {
             return paragraph;
         })
     );
+}
+
+function ensureFooterSocials() {
+    const footerContainer = document.querySelector(".footer-container");
+    if (!footerContainer) return null;
+
+    let container = document.querySelector("#profile-footer-socials");
+    if (container) return container;
+
+    container = document.createElement("nav");
+    container.id = "profile-footer-socials";
+    container.className = "footer-socials";
+    container.setAttribute("aria-label", "Redes sociais no rodapé");
+
+    const backToTop = footerContainer.querySelector(".back-to-top");
+    footerContainer.insertBefore(container, backToTop || null);
+
+    return container;
+}
+
+function renderFooterSocials(profile) {
+    const container = ensureFooterSocials();
+    if (!container) return;
+
+    const links = [
+        ["GitHub", profile.github_url],
+        ["LinkedIn", profile.linkedin_url],
+        ["Instagram", profile.instagram_url],
+        ["YouTube", profile.youtube_url],
+        ["X", profile.twitter_url],
+        ["Site", profile.website_url],
+    ]
+        .map(([label, value]) => [label, normalizePublicUrl(value)])
+        .filter(([, value]) => value);
+
+    container.replaceChildren(
+        ...links.map(([label, href]) => {
+            const link = document.createElement("a");
+            link.href = href;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = label;
+            return link;
+        })
+    );
+
+    const builderSettings = window.__portfolioBuilderSettings || {};
+    container.hidden =
+        builderSettings.show_footer_social_links === false || !links.length;
 }
 
 function renderProfile(profile) {
@@ -101,6 +158,8 @@ function renderProfile(profile) {
         avatar.src = profile.avatar_url;
         avatar.alt = `Foto profissional de ${profile.full_name || "perfil"}`;
     }
+
+    renderFooterSocials(profile);
 
     if (profile.full_name) {
         document.title = `${profile.full_name} | Portfólio`;

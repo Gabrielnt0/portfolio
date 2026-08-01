@@ -267,3 +267,10 @@
 [data-custom-section-style="true"] li {
     color: var(--section-custom-text, inherit);
 }
+
+
+/* Sprint H2 — redes sociais funcionais no rodapé */
+.footer-socials { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.7rem; }
+.footer-socials a { color:var(--color-muted); font-size:.82rem; text-decoration:none; transition:color .2s ease; }
+.footer-socials a:hover { color:var(--color-primary); }
+@media (max-width:720px) { .footer-socials { order:3; width:100%; } }

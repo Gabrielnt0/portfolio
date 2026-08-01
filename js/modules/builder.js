@@ -167,8 +167,13 @@ function applyFooterSettings(settings) {
     if (!footer) return;
 
     const copyright = footer.querySelector(".footer-container > p");
-    if (copyright && settings.footer_text?.trim()) {
-        copyright.textContent = settings.footer_text.trim();
+    if (copyright) {
+        if (!copyright.dataset.defaultText) {
+            copyright.dataset.defaultText = copyright.textContent.trim();
+        }
+
+        copyright.textContent =
+            settings.footer_text?.trim() || copyright.dataset.defaultText;
     }
 
     setElementVisibility(
@@ -176,7 +181,8 @@ function applyFooterSettings(settings) {
         settings.show_back_to_top !== false
     );
 
-    footer.dataset.showSocialLinks = String(
+    setElementVisibility(
+        "#profile-footer-socials",
         settings.show_footer_social_links !== false
     );
 }
@@ -192,9 +198,15 @@ function applyProjectSettings(settings) {
         );
     }
 
-    if (filters && settings.show_project_filters === false) {
-        filters.hidden = true;
-        filters.dataset.builderDisabled = "true";
+    if (filters) {
+        const shouldHideFilters = settings.show_project_filters === false;
+        filters.hidden = shouldHideFilters;
+
+        if (shouldHideFilters) {
+            filters.dataset.builderDisabled = "true";
+        } else {
+            delete filters.dataset.builderDisabled;
+        }
     }
 }
 
