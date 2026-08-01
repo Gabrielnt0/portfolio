@@ -34,6 +34,14 @@ function buildPortfolioPayload() {
     return payload;
 }
 
+function buildPersonalSettingsPayload() {
+    const ownerUserId = portfolioConfig.ownerUserId?.trim();
+
+    return ownerUserId
+        ? { requested_owner_user_id: ownerUserId }
+        : {};
+}
+
 async function requestRpc(functionName, payload = {}) {
     if (!hasValidConfiguration()) {
         throw new Error("Supabase ainda não foi configurado no portfólio.");
@@ -112,10 +120,10 @@ export async function getPublicSeo() {
 
 /** Carrega o tema público associado ao mesmo workspace do portfólio. */
 export async function getPublicTheme() {
-    return requestRpc("get_public_portfolio_theme", buildPortfolioPayload());
+    return requestRpc("get_public_portfolio_theme", buildPersonalSettingsPayload());
 }
 
 /** Carrega a estrutura pública do Site Builder para o mesmo workspace. */
 export async function getPublicBuilderSettings() {
-    return requestRpc("get_public_portfolio_builder", buildPortfolioPayload());
+    return requestRpc("get_public_portfolio_builder", buildPersonalSettingsPayload());
 }
