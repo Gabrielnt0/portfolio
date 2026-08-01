@@ -74,7 +74,7 @@ function normalizeContent(content) {
         skills: Array.isArray(content?.skills) ? content.skills : [],
         seo: content?.seo ?? null,
         theme: content?.theme ?? null,
-        settings: content?.settings ?? null,
+        builder: content?.builder ?? null,
         meta: content?.meta ?? {}
     };
 }
@@ -120,12 +120,28 @@ export async function getPublicSeo() {
     return (await getPortfolioContent()).seo;
 }
 
-/** Carrega o tema público associado ao mesmo workspace do portfólio. */
+/** Usa a mesma resposta canônica do conteúdo e evita requisição duplicada. */
 export async function getPublicTheme() {
-    return requestRpc("get_public_portfolio_theme", buildPersonalSettingsPayload());
+    const content = await getPortfolioContent();
+
+    return (
+        content.theme ??
+        requestRpc(
+            "get_public_portfolio_theme",
+            buildPersonalSettingsPayload()
+        )
+    );
 }
 
-/** Carrega a estrutura pública do Site Builder para o mesmo workspace. */
+/** Usa a mesma resposta canônica do conteúdo e evita requisição duplicada. */
 export async function getPublicBuilderSettings() {
-    return requestRpc("get_public_portfolio_builder", buildPersonalSettingsPayload());
+    const content = await getPortfolioContent();
+
+    return (
+        content.builder ??
+        requestRpc(
+            "get_public_portfolio_builder",
+            buildPersonalSettingsPayload()
+        )
+    );
 }
