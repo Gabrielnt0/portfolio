@@ -3,6 +3,7 @@ const types = {
     ping: "PREVIEW_PING",
     ready: "PREVIEW_READY",
     applySettings: "APPLY_BUILDER_SETTINGS",
+    applyProfile: "APPLY_PROFILE_DRAFT",
     selectSection: "SELECT_SECTION",
     scrollToSection: "SCROLL_TO_SECTION",
     sectionSelected: "SECTION_SELECTED",
@@ -118,6 +119,89 @@ function applyTemporarySettings(settings = {}) {
     window.requestAnimationFrame(updateOverlay);
 }
 
+function setDraftText(selector, value) {
+    const element = document.querySelector(selector);
+    if (!element) return;
+
+    element.textContent = value || "";
+}
+
+function setDraftLink(selector, value, prefix = "") {
+    const element = document.querySelector(selector);
+    if (!element) return;
+
+    const normalized = String(value || "").trim();
+
+    if (!normalized) {
+        element.removeAttribute("href");
+        element.hidden = true;
+        return;
+    }
+
+    element.href = prefix ? `${prefix}${normalized}` : normalized;
+    element.hidden = false;
+}
+
+function applyProfileDraft(profile = {}) {
+    setDraftText("#profile-name", profile.fullName);
+    setDraftText("#profile-title", profile.professionalTitle);
+    setDraftText("#profile-short-bio", profile.shortBio);
+    setDraftText("#profile-location", profile.location);
+    setDraftText(
+        "#profile-availability",
+        profile.availableForWork
+            ? "Disponível para oportunidades e projetos"
+            : "Indisponível para novos trabalhos no momento"
+    );
+
+    const bio = document.querySelector("#profile-bio");
+    if (bio) {
+        const paragraphs = String(profile.bio || "")
+            .split(/\n{2,}/)
+            .map((paragraph) => paragraph.trim())
+            .filter(Boolean);
+
+        bio.replaceChildren(
+            ...paragraphs.map((text) => {
+                const paragraph = document.createElement("p");
+                paragraph.textContent = text;
+                return paragraph;
+            })
+        );
+    }
+
+    setDraftLink("#profile-github", profile.githubUrl);
+    setDraftLink("#profile-linkedin", profile.linkedinUrl);
+    setDraftLink("#profile-instagram", profile.instagramUrl);
+    setDraftLink("#profile-youtube", profile.youtubeUrl);
+    setDraftLink("#profile-twitter", profile.twitterUrl);
+    setDraftLink("#profile-website", profile.websiteUrl);
+    setDraftLink("#profile-resume", profile.resumeUrl);
+    setDraftLink("#profile-email-link", profile.email, "mailto:");
+    setDraftLink("#profile-phone-link", profile.phone, "tel:");
+    setDraftLink("#profile-linkedin-contact", profile.linkedinUrl);
+    setDraftLink("#profile-github-contact", profile.githubUrl);
+    setDraftLink("#profile-youtube-contact", profile.youtubeUrl);
+
+    setDraftText("#profile-email-text", profile.email);
+    setDraftText("#profile-phone-text", profile.phone);
+    setDraftText("#profile-linkedin-name", profile.fullName);
+    setDraftText("#profile-github-name", profile.fullName);
+    setDraftText("#profile-footer-name", profile.fullName);
+    setDraftText(
+        "#profile-footer-logo",
+        String(profile.fullName || "").split(" ")[0]
+    );
+
+    const avatar = document.querySelector("#profile-avatar");
+    if (avatar && profile.avatarUrl) {
+        avatar.src = profile.avatarUrl;
+        avatar.alt = `Foto profissional de ${profile.fullName || "perfil"}`;
+    }
+
+    window.requestAnimationFrame(updateOverlay);
+}
+
 function identifySectionFromTarget(target) {
     const section = target.closest("main > section, main .resume");
     if (!section) return null;
@@ -164,6 +248,10 @@ function initialize() {
 
         if (type === types.applySettings) {
             applyTemporarySettings(payload.settings);
+        }
+
+        if (type === types.applyProfile) {
+            applyProfileDraft(payload.profile);
         }
 
         if (type === types.selectSection) {
