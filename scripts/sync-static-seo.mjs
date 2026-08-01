@@ -66,7 +66,9 @@ function createTracking(seo) {
   const gtm = String(seo.google_tag_manager || "")
     .trim()
     .toUpperCase();
-  const ga = String(seo.google_analytics || "")
+  const ga = String(
+    seo.__analytics_measurement_id || seo.google_analytics || ""
+  )
     .trim()
     .toUpperCase();
 
@@ -165,7 +167,13 @@ if (!content?.meta?.found || !content?.profile) {
   );
 }
 
-const seo = content.seo || {};
+const seo = {
+  ...(content.seo || {}),
+  __analytics_measurement_id:
+    content.settings?.google_analytics_enabled
+      ? content.settings?.google_analytics_measurement_id
+      : ""
+};
 const profile = content.profile || {};
 const canonical =
   seo.canonical_url || "https://gabrielnt0.github.io/portfolio/";

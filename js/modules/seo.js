@@ -24,10 +24,10 @@ function setLink(rel, href) {
     element.href = href;
 }
 
-function hasStaticTracking(type, id) {
+function hasStaticTracking() {
     return Boolean(
         document.querySelector(
-            `[data-portfolio-${type}="${CSS.escape(id)}"]`
+            "[data-portfolio-gtm], [data-portfolio-ga]"
         )
     );
 }
@@ -35,7 +35,7 @@ function hasStaticTracking(type, id) {
 function injectGoogleAnalytics(measurementId) {
     const id = String(measurementId || "").trim().toUpperCase();
     if (!/^G-[A-Z0-9]+$/.test(id)) return;
-    if (hasStaticTracking("ga", id)) return;
+    if (hasStaticTracking()) return;
     if (document.querySelector(`[data-portfolio-ga="${id}"]`)) return;
 
     const script = document.createElement("script");
@@ -54,7 +54,7 @@ function injectGoogleAnalytics(measurementId) {
 function injectGoogleTagManager(containerId) {
     const id = String(containerId || "").trim().toUpperCase();
     if (!/^GTM-[A-Z0-9]+$/.test(id)) return;
-    if (hasStaticTracking("gtm", id)) return;
+    if (hasStaticTracking()) return;
     if (document.querySelector(`[data-portfolio-gtm="${id}"]`)) return;
 
     window.dataLayer = window.dataLayer || [];
