@@ -1,5 +1,6 @@
 const SOURCE = "portfolio-cms-visual-editor";
 const types = {
+    ping: "PREVIEW_PING",
     ready: "PREVIEW_READY",
     applySettings: "APPLY_BUILDER_SETTINGS",
     selectSection: "SELECT_SECTION",
@@ -20,13 +21,17 @@ const SECTION_IDS = [
 
 let selectedSectionId = null;
 let selectionOverlay = null;
+let parentOrigin = "*";
 
 function isEditorMode() {
     return new URLSearchParams(window.location.search).get("visualEditor") === "1";
 }
 
 function post(type, payload = {}) {
-    window.parent?.postMessage({ source: SOURCE, type, payload }, "*");
+    window.parent?.postMessage(
+        { source: SOURCE, type, payload },
+        parentOrigin
+    );
 }
 
 function getSection(id) {
@@ -79,7 +84,7 @@ function selectSection(sectionId, notifyParent = false) {
     if (!SECTION_IDS.includes(sectionId)) return;
 
     selectedSectionId = sectionId;
-    updateOverlay();
+    window.requestAnimationFrame(updateOverlay);
 
     if (notifyParent) {
         post(types.sectionSelected, { sectionId });
@@ -93,7 +98,6 @@ function applyTemporarySettings(settings = {}) {
         new CustomEvent("portfolio:builder-ready", { detail: settings })
     );
 
-    // builder.js aplica essas opções. O dispatch também atualiza projetos e skills.
     const sections = Array.isArray(settings.sections) ? settings.sections : [];
     const main = document.querySelector("main");
 
@@ -133,22 +137,30 @@ function initialize() {
             const sectionId = identifySectionFromTarget(event.target);
             if (!sectionId) return;
 
-            const interactive = event.target.closest("a, button, input, select, textarea");
+            const interactive = event.target.closest(
+                "a, button, input, select, textarea"
+            );
 
             event.preventDefault();
             event.stopPropagation();
 
             selectSection(sectionId, true);
-
-            if (interactive) interactive.blur?.();
+            interactive?.blur?.();
         },
         true
     );
 
     window.addEventListener("message", (event) => {
+        if (event.source !== window.parent) return;
         if (event.data?.source !== SOURCE) return;
 
+        parentOrigin = event.origin || "*";
+
         const { type, payload = {} } = event.data;
+
+        if (type === types.ping) {
+            post(types.ready);
+        }
 
         if (type === types.applySettings) {
             applyTemporarySettings(payload.settings);
@@ -179,7 +191,7 @@ function initialize() {
         attributeFilter: ["hidden", "class", "style"]
     });
 
-    post(types.ready);
+    window.setTimeout(() => post(types.ready), 50);
 }
 
 initialize();
