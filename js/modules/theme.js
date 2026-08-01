@@ -40,6 +40,41 @@ function hexToRgba(hex, alpha) {
     return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
+function getSectionElement(id) {
+    if (id === "curriculo") {
+        const resume = document.querySelector("main .resume");
+        if (resume && !resume.id) resume.id = "curriculo";
+        return resume;
+    }
+    return document.getElementById(id);
+}
+
+function applySectionStyles(sectionStyles = {}) {
+    Object.entries(sectionStyles).forEach(([sectionId, style]) => {
+        const section = getSectionElement(sectionId);
+        if (!section) return;
+
+        section.dataset.customSectionStyle = "true";
+        section.style.setProperty("--section-custom-text", style.textColor || "inherit");
+        section.style.backgroundColor = style.backgroundColor || "";
+        section.style.backgroundImage = style.backgroundImage
+            ? `linear-gradient(rgba(0,0,0,${Number(style.backgroundOverlay || 0) / 100}), rgba(0,0,0,${Number(style.backgroundOverlay || 0) / 100})), url("${style.backgroundImage}")`
+            : "";
+        section.style.backgroundSize = style.backgroundImage ? "cover" : "";
+        section.style.backgroundPosition = style.backgroundImage ? "center" : "";
+        section.style.paddingTop = Number(style.paddingTop) ? `${style.paddingTop}px` : "";
+        section.style.paddingBottom = Number(style.paddingBottom) ? `${style.paddingBottom}px` : "";
+        section.style.marginTop = Number(style.marginTop) ? `${style.marginTop}px` : "";
+        section.style.marginBottom = Number(style.marginBottom) ? `${style.marginBottom}px` : "";
+        section.style.border = Number(style.borderWidth)
+            ? `${style.borderWidth}px solid ${style.borderColor || "var(--color-border)"}`
+            : "";
+        section.style.borderRadius = Number(style.borderRadius)
+            ? `${style.borderRadius}px`
+            : "";
+    });
+}
+
 function applyTheme(theme) {
     if (!theme) return;
 
@@ -74,6 +109,7 @@ function applyTheme(theme) {
 
     ROOT.dataset.portfolioTheme = theme.preset || "custom";
     ROOT.classList.toggle("theme-motion-disabled", theme.motion_enabled === false);
+    applySectionStyles(theme.settings?.sectionStyles || {});
 }
 
 async function loadTheme() {

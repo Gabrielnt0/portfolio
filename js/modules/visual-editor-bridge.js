@@ -4,6 +4,7 @@ const types = {
     ready: "PREVIEW_READY",
     applySettings: "APPLY_BUILDER_SETTINGS",
     applyProfile: "APPLY_PROFILE_DRAFT",
+    applyTheme: "APPLY_THEME_DRAFT",
     selectSection: "SELECT_SECTION",
     scrollToSection: "SCROLL_TO_SECTION",
     sectionSelected: "SECTION_SELECTED",
@@ -202,6 +203,70 @@ function applyProfileDraft(profile = {}) {
     window.requestAnimationFrame(updateOverlay);
 }
 
+const FONT_STACKS = {
+    Inter: '"Inter", Arial, Helvetica, sans-serif',
+    Manrope: '"Manrope", "Inter", Arial, sans-serif',
+    Poppins: '"Poppins", "Inter", Arial, sans-serif',
+    "Space Grotesk": '"Space Grotesk", "Inter", Arial, sans-serif',
+    Georgia: 'Georgia, "Times New Roman", serif'
+};
+
+function applyThemeDraft(theme = {}) {
+    const root = document.documentElement;
+    const variables = {
+        "--color-background": theme.backgroundColor,
+        "--color-surface": theme.surfaceColor,
+        "--color-card": theme.cardColor,
+        "--color-border": theme.borderColor,
+        "--color-primary": theme.primaryColor,
+        "--color-primary-hover": theme.primaryHoverColor,
+        "--color-title": theme.titleColor,
+        "--color-text": theme.textColor,
+        "--color-muted": theme.mutedColor,
+        "--font-primary": FONT_STACKS[theme.fontFamily] || FONT_STACKS.Inter
+    };
+
+    Object.entries(variables).forEach(([key, value]) => {
+        if (value) root.style.setProperty(key, value);
+    });
+
+    const radius = {
+        square: ["0.25rem", "0.4rem", "0.55rem", "0.75rem"],
+        rounded: ["0.5rem", "0.875rem", "1.25rem", "1.75rem"],
+        pill: ["1rem", "1.5rem", "2rem", "2.5rem"]
+    }[theme.borderRadius || "rounded"];
+
+    ["sm", "md", "lg", "xl"].forEach((size, index) => {
+        root.style.setProperty(`--border-radius-${size}`, radius[index]);
+    });
+
+    root.classList.toggle("theme-motion-disabled", theme.motionEnabled === false);
+
+    Object.entries(theme.settings?.sectionStyles || {}).forEach(([id, style]) => {
+        const section = getSection(id);
+        if (!section) return;
+        const overlay = Number(style.backgroundOverlay || 0) / 100;
+        section.dataset.customSectionStyle = "true";
+        section.style.setProperty("--section-custom-text", style.textColor || "inherit");
+        section.style.backgroundColor = style.backgroundColor || "";
+        section.style.backgroundImage = style.backgroundImage
+            ? `linear-gradient(rgba(0,0,0,${overlay}), rgba(0,0,0,${overlay})), url("${style.backgroundImage}")`
+            : "";
+        section.style.backgroundSize = style.backgroundImage ? "cover" : "";
+        section.style.backgroundPosition = style.backgroundImage ? "center" : "";
+        section.style.paddingTop = Number(style.paddingTop) ? `${style.paddingTop}px` : "";
+        section.style.paddingBottom = Number(style.paddingBottom) ? `${style.paddingBottom}px` : "";
+        section.style.marginTop = Number(style.marginTop) ? `${style.marginTop}px` : "";
+        section.style.marginBottom = Number(style.marginBottom) ? `${style.marginBottom}px` : "";
+        section.style.border = Number(style.borderWidth)
+            ? `${style.borderWidth}px solid ${style.borderColor || "var(--color-border)"}`
+            : "";
+        section.style.borderRadius = Number(style.borderRadius) ? `${style.borderRadius}px` : "";
+    });
+
+    window.requestAnimationFrame(updateOverlay);
+}
+
 function identifySectionFromTarget(target) {
     const section = target.closest("main > section, main .resume");
     if (!section) return null;
@@ -252,6 +317,10 @@ function initialize() {
 
         if (type === types.applyProfile) {
             applyProfileDraft(payload.profile);
+        }
+
+        if (type === types.applyTheme) {
+            applyThemeDraft(payload.theme);
         }
 
         if (type === types.selectSection) {

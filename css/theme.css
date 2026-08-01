@@ -251,3 +251,19 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }
+
+
+/* Estilos personalizados por seção */
+[data-custom-section-style="true"] {
+    color: var(--section-custom-text, inherit);
+    overflow: hidden;
+}
+
+[data-custom-section-style="true"] .section-title,
+[data-custom-section-style="true"] .section-subtitle,
+[data-custom-section-style="true"] .hero-title,
+[data-custom-section-style="true"] .hero-description,
+[data-custom-section-style="true"] p,
+[data-custom-section-style="true"] li {
+    color: var(--section-custom-text, inherit);
+}
